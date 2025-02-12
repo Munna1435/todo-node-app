@@ -1,6 +1,7 @@
-const express = require("express");
+import express from "express";
+
 const router = express.Router();
-const { todoController } = require("../controllers/index");
+import { todoController } from "../controllers/index";
 
 router.post("/", todoController.createTodo);
 router.get("/", todoController.getTodos);
@@ -8,4 +9,4 @@ router.get("/:id", todoController.getTodoById);
 router.put("/:id", todoController.updateTodo);
 router.delete("/:id", todoController.deleteTodo);
 
-module.exports = router;
+export default router;

@@ -1,7 +1,7 @@
-const pool = require("../config/db");
+import pool from "../config/db";
 
 // Create a new todo
-exports.createTodo = async (title) => {
+const createTodo = async (title : string) => {
     const result = await pool.query(
         "INSERT INTO todos (title) VALUES ($1) RETURNING *",
         [title]
@@ -10,19 +10,19 @@ exports.createTodo = async (title) => {
 };
 
 // Get all todos
-exports.getTodos = async () => {
+const getTodos = async () => {
     const result = await pool.query("SELECT * FROM todos ORDER BY id ASC");
     return result.rows;
 };
 
 // Get a single todo
-exports.getTodoById = async (id) => {
+const getTodoById = async (id : number) => {
     const result = await pool.query("SELECT * FROM todos WHERE id = $1", [id]);
     return result.rows[0];
 };
 
 // Update a todo
-exports.updateTodo = async (id, title, completed) => {
+const updateTodo = async (id : number, title : string, completed : boolean) => {
     const result = await pool.query(
         "UPDATE todos SET title = $1, completed = $2 WHERE id = $3 RETURNING *",
         [title, completed, id]
@@ -31,7 +31,15 @@ exports.updateTodo = async (id, title, completed) => {
 };
 
 // Delete a todo
-exports.deleteTodo = async (id) => {
+const deleteTodo = async (id : number) => {
     const result = await pool.query("DELETE FROM todos WHERE id = $1 RETURNING *", [id]);
     return result.rows[0];
 };
+
+export {
+    createTodo,
+    getTodos,
+    getTodoById,
+    updateTodo,
+    deleteTodo
+}

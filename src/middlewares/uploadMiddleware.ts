@@ -1,5 +1,6 @@
-const multer = require("multer");
-const path = require("path");
+import multer from "multer";
+import path from "path";
+import { Request } from "express";
 
 // Configure storage
 const storage = multer.diskStorage({
@@ -12,7 +13,7 @@ const storage = multer.diskStorage({
 });
 
 // File upload filter (optional)
-const fileFilter = (req, file, cb) => {
+const fileFilter = (req : Request, file : any, cb : any) => {
     if (file.mimetype.startsWith("image/") || file.mimetype === "application/pdf") {
         cb(null, true);
     } else {
@@ -22,4 +23,4 @@ const fileFilter = (req, file, cb) => {
 
 const upload = multer({ storage, fileFilter });
 
-module.exports = upload;
+export default upload;
